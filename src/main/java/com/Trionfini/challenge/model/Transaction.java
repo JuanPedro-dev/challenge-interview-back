@@ -1,8 +1,11 @@
 package com.Trionfini.challenge.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -10,8 +13,8 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private Date date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+    private LocalDate date;
     private Double amount;
 
     @ManyToOne
@@ -22,13 +25,7 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Long id, Date date, Double amount) {
-        this.id = id;
-        this.date = date;
-        this.amount = amount;
-    }
-
-    public Transaction(Long id, Date date, Double amount, Card card) {
+    public Transaction(Long id, LocalDate date, Double amount, Card card) {
         this.id = id;
         this.date = date;
         this.amount = amount;
@@ -43,11 +40,11 @@ public class Transaction {
         this.id = id;
     }
 
-    public Date getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDate date) {
         this.date = date;
     }
 
@@ -58,7 +55,6 @@ public class Transaction {
     public void setAmount(Double amount) {
         this.amount = amount;
     }
-
 
     public Card getCard() {
         return card;

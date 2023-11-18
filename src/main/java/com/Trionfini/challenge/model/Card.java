@@ -3,7 +3,7 @@ package com.Trionfini.challenge.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
@@ -30,12 +30,12 @@ public class Card {
     @JsonIgnore
     private Client client;
 
-    private Date expiration;
+    private LocalDate expiration;
 
     public Card() {
     }
 
-    public Card(Long id, String alias, Long key_security, Double balance, List<Transaction> debits, List<Transaction> credits, Client client, Date expiration) {
+    public Card(Long id, String alias, Long key_security, Double balance, List<Transaction> debits, List<Transaction> credits, Client client, LocalDate expiration) {
         this.id = id;
         this.alias = alias;
         this.key_security = key_security;
@@ -102,11 +102,11 @@ public class Card {
         this.client = client;
     }
 
-    public Date getExpiration() {
+    public LocalDate getExpiration() {
         return expiration;
     }
 
-    public void setExpiration(Date expiration) {
+    public void setExpiration(LocalDate expiration) {
         this.expiration = expiration;
     }
 }

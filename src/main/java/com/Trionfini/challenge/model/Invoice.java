@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 public class Invoice {
@@ -23,7 +23,7 @@ public class Invoice {
     // Cantidad de Cuotas abonadas
     private int fees_parcial;
     // Fecha de vencimiento
-    private Date date_issued;
+    private LocalDate date_issued;
     // Tasa de interés
     private Double rate;
     // Esta abonada o no
@@ -37,7 +37,7 @@ public class Invoice {
     public Invoice() {
     }
 
-    public Invoice(Long id, Double global, Double parcial, int fees_global, int fees_parcial, Date date_issued, Double rate, Boolean isPayed, Client client) {
+    public Invoice(Long id, Double global, Double parcial, int fees_global, int fees_parcial, LocalDate date_issued, Double rate, Boolean isPayed, Client client) {
         this.id = id;
         this.global = global;
         this.parcial = parcial;
@@ -89,11 +89,11 @@ public class Invoice {
         this.fees_parcial = fees_parcial;
     }
 
-    public Date getDate_issued() {
+    public LocalDate getDate_issued() {
         return date_issued;
     }
 
-    public void setDate_issued(Date date_issued) {
+    public void setDate_issued(LocalDate date_issued) {
         this.date_issued = date_issued;
     }
 
