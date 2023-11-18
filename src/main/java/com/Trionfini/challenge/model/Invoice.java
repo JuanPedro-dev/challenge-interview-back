@@ -1,9 +1,7 @@
 package com.Trionfini.challenge.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import java.util.Date;
@@ -31,10 +29,15 @@ public class Invoice {
     // Esta abonada o no
     private Boolean isPayed;
 
+    @ManyToOne
+    @JoinColumn(name = "client")
+    @JsonIgnore
+    private Client client;
+
     public Invoice() {
     }
 
-    public Invoice(Long id, Double global, Double parcial, int fees_global, int fees_parcial, Date date_issued, Double rate, Boolean isPayed) {
+    public Invoice(Long id, Double global, Double parcial, int fees_global, int fees_parcial, Date date_issued, Double rate, Boolean isPayed, Client client) {
         this.id = id;
         this.global = global;
         this.parcial = parcial;
@@ -43,6 +46,7 @@ public class Invoice {
         this.date_issued = date_issued;
         this.rate = rate;
         this.isPayed = isPayed;
+        this.client = client;
     }
 
     public Long getId() {
@@ -101,11 +105,19 @@ public class Invoice {
         this.rate = rate;
     }
 
-    public Boolean getisPayed() {
+    public Boolean getIsPayed() {
         return isPayed;
     }
 
-    public void setisPayed(Boolean payed) {
+    public void setIsPayed(Boolean payed) {
         isPayed = payed;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

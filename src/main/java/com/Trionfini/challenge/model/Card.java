@@ -1,5 +1,6 @@
 package com.Trionfini.challenge.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -24,19 +25,24 @@ public class Card {
     @OneToMany(mappedBy = "card", fetch = FetchType.EAGER)
     private List<Transaction> credits;
 
+    @ManyToOne
+    @JoinColumn(name = "client")
+    @JsonIgnore
+    private Client client;
 
     private Date expiration;
 
     public Card() {
     }
 
-    public Card(Long id, String alias, Long key_security, Double balance, List<Transaction> debits, List<Transaction> credits, Date expiration) {
+    public Card(Long id, String alias, Long key_security, Double balance, List<Transaction> debits, List<Transaction> credits, Client client, Date expiration) {
         this.id = id;
         this.alias = alias;
         this.key_security = key_security;
         this.balance = balance;
         this.debits = debits;
         this.credits = credits;
+        this.client = client;
         this.expiration = expiration;
     }
 
@@ -86,6 +92,14 @@ public class Card {
 
     public void setCredits(List<Transaction> credits) {
         this.credits = credits;
+    }
+
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
     }
 
     public Date getExpiration() {
