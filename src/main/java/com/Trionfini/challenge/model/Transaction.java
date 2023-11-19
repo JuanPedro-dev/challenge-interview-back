@@ -13,9 +13,13 @@ public class Transaction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String description;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     private Double amount;
+    private StateTransaction state;
+    private TypeTransaction type;
+
 
     @ManyToOne
     @JoinColumn(name = "client")
@@ -25,10 +29,13 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(Long id, LocalDate date, Double amount, Client client) {
+    public Transaction(Long id, String description, LocalDate date, Double amount, StateTransaction state, TypeTransaction type, Client client) {
         this.id = id;
+        this.description = description;
         this.date = date;
         this.amount = amount;
+        this.state = state;
+        this.type = type;
         this.client = client;
     }
 
@@ -38,6 +45,14 @@ public class Transaction {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public LocalDate getDate() {
@@ -54,6 +69,22 @@ public class Transaction {
 
     public void setAmount(Double amount) {
         this.amount = amount;
+    }
+
+    public StateTransaction getState() {
+        return state;
+    }
+
+    public void setState(StateTransaction state) {
+        this.state = state;
+    }
+
+    public TypeTransaction getType() {
+        return type;
+    }
+
+    public void setType(TypeTransaction type) {
+        this.type = type;
     }
 
     public Client getClient() {

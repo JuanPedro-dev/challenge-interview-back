@@ -67,14 +67,9 @@ public class ClientService {
             cardService.saveCard(card);
         }
 
-        for (Transaction debit : client.getDebits()) {
-            debit.setClient(savedClient);
-            transactionService.saveTransaction(debit);
-        }
-
-        for (Transaction credit : client.getCredits()) {
-            credit.setClient(savedClient);
-            transactionService.saveTransaction(credit);
+        for (Transaction transaction : client.getTransactions()) {
+            transaction.setClient(savedClient);
+            transactionService.saveTransaction(transaction);
         }
 
         return savedClient;
