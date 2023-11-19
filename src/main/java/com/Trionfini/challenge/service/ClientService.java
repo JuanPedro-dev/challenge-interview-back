@@ -19,17 +19,19 @@ public class ClientService {
     private final TransactionRepository transactionRepository;
 
     private final CardService cardService;
+    private final TransactionService transactionService;
 
     @Autowired
     public ClientService(ClientRepository clienteRepository,
                          CardRepository cardRepository,
                          TransactionRepository transactionRepository,
-                         CardService cardService
-    ) {
+                         CardService cardService,
+                         TransactionService transactionService) {
         this.clienteRepository = clienteRepository;
         this.cardRepository = cardRepository;
         this.transactionRepository = transactionRepository;
         this.cardService = cardService;
+        this.transactionService = transactionService;
     }
 
     /**
@@ -60,26 +62,20 @@ public class ClientService {
     public Client saveClient(Client client) {
         Client savedClient = clienteRepository.save(client);
 
-
         for (Card card : client.getCards()) {
             card.setClient(savedClient);
             cardService.saveCard(card);
         }
 
-//        for (Card card : client.getCards()) {
-//            card.setClient(savedClient);
-//            Card savedCard = cardRepository.save(card);
-//
-//            for (Transaction transaction : savedCard.getCredits()) {
-//                transaction.setCard(savedCard);
-//                transactionRepository.save(transaction);
-//            }
-//
-//            for (Transaction transaction : savedCard.getDebits()) {
-//                transaction.setCard(savedCard);
-//                transactionRepository.save(transaction);
-//            }
-//        }
+        for (Transaction debit : client.getDebits()) {
+            debit.setClient(savedClient);
+            transactionService.saveTransaction(debit);
+        }
+
+        for (Transaction credit : client.getCredits()) {
+            credit.setClient(savedClient);
+            transactionService.saveTransaction(credit);
+        }
 
         return savedClient;
     }

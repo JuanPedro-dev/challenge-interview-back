@@ -19,12 +19,6 @@ public class Card {
 
     private Double balance;
 
-    @OneToMany(mappedBy = "card")
-    private List<Transaction> debits;
-
-    @OneToMany(mappedBy = "card", fetch = FetchType.EAGER)
-    private List<Transaction> credits;
-
     @ManyToOne
     @JoinColumn(name = "client")
     @JsonIgnore
@@ -35,13 +29,11 @@ public class Card {
     public Card() {
     }
 
-    public Card(Long id, String alias, Long key_security, Double balance, List<Transaction> debits, List<Transaction> credits, Client client, LocalDate expiration) {
+    public Card(Long id, String alias, Long key_security, Double balance, Client client, LocalDate expiration) {
         this.id = id;
         this.alias = alias;
         this.key_security = key_security;
         this.balance = balance;
-        this.debits = debits;
-        this.credits = credits;
         this.client = client;
         this.expiration = expiration;
     }
@@ -76,22 +68,6 @@ public class Card {
 
     public void setBalance(Double balance) {
         this.balance = balance;
-    }
-
-    public List<Transaction> getDebits() {
-        return debits;
-    }
-
-    public void setDebits(List<Transaction> debits) {
-        this.debits = debits;
-    }
-
-    public List<Transaction> getCredits() {
-        return credits;
-    }
-
-    public void setCredits(List<Transaction> credits) {
-        this.credits = credits;
     }
 
     public Client getClient() {

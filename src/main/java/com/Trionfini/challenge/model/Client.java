@@ -20,16 +20,25 @@ public class Client {
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Invoice> invoices;
 
+    @OneToMany(mappedBy = "client")
+    private List<Transaction> debits;
+
+    @OneToMany(mappedBy = "client", fetch = FetchType.EAGER)
+    private List<Transaction> credits;
+
+
     public Client() {
     }
 
-    public Client(Long id, String name, String password, Double balance, List<Card> cards, List<Invoice> invoices) {
+    public Client(Long id, String name, String password, Double balance, List<Card> cards, List<Invoice> invoices, List<Transaction> debits, List<Transaction> credits) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.balance = balance;
         this.cards = cards;
         this.invoices = invoices;
+        this.debits = debits;
+        this.credits = credits;
     }
 
     public Long getId() {
@@ -78,5 +87,21 @@ public class Client {
 
     public void setInvoices(List<Invoice> invoices) {
         this.invoices = invoices;
+    }
+
+    public List<Transaction> getDebits() {
+        return debits;
+    }
+
+    public void setDebits(List<Transaction> debits) {
+        this.debits = debits;
+    }
+
+    public List<Transaction> getCredits() {
+        return credits;
+    }
+
+    public void setCredits(List<Transaction> credits) {
+        this.credits = credits;
     }
 }

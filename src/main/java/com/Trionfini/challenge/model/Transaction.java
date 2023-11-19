@@ -18,18 +18,18 @@ public class Transaction {
     private Double amount;
 
     @ManyToOne
-    @JoinColumn(name = "card")
+    @JoinColumn(name = "client")
     @JsonIgnore
-    private Card card;
+    private Client client;
 
     public Transaction() {
     }
 
-    public Transaction(Long id, LocalDate date, Double amount, Card card) {
+    public Transaction(Long id, LocalDate date, Double amount, Client client) {
         this.id = id;
         this.date = date;
         this.amount = amount;
-        this.card = card;
+        this.client = client;
     }
 
     public Long getId() {
@@ -56,11 +56,11 @@ public class Transaction {
         this.amount = amount;
     }
 
-    public Card getCard() {
-        return card;
+    public Client getClient() {
+        return client;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setClient(Client client) {
+        this.client = client;
     }
 }

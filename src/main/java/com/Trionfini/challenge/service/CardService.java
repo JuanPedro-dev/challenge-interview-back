@@ -46,19 +46,7 @@ public class CardService {
      * @return The saved card (with assigned ID).
      */
     public Card saveCard(Card card) {
-        Card savedCard = cardRepository.save(card);
-
-        for (Transaction transaction : card.getCredits()) {
-            transaction.setCard(savedCard);
-            transactionService.saveTransaction(transaction);
-        }
-
-        for (Transaction transaction : card.getDebits()) {
-            transaction.setCard(savedCard);
-            transactionService.saveTransaction(transaction);
-        }
-
-        return savedCard;
+        return cardRepository.save(card);
     }
 
     /**
