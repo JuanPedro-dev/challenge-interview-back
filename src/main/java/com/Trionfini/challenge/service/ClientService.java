@@ -2,6 +2,7 @@ package com.Trionfini.challenge.service;
 
 import com.Trionfini.challenge.model.Card;
 import com.Trionfini.challenge.model.Client;
+import com.Trionfini.challenge.model.Invoice;
 import com.Trionfini.challenge.model.Transaction;
 import com.Trionfini.challenge.repository.CardRepository;
 import com.Trionfini.challenge.repository.ClientRepository;
@@ -17,21 +18,22 @@ public class ClientService {
     private final ClientRepository clienteRepository;
     private final CardRepository cardRepository;
     private final TransactionRepository transactionRepository;
-
     private final CardService cardService;
     private final TransactionService transactionService;
-
+    private final InvoiceService invoicesService;
     @Autowired
     public ClientService(ClientRepository clienteRepository,
                          CardRepository cardRepository,
                          TransactionRepository transactionRepository,
                          CardService cardService,
-                         TransactionService transactionService) {
+                         TransactionService transactionService,
+                         InvoiceService invoicesService) {
         this.clienteRepository = clienteRepository;
         this.cardRepository = cardRepository;
         this.transactionRepository = transactionRepository;
         this.cardService = cardService;
         this.transactionService = transactionService;
+        this.invoicesService = invoicesService;
     }
 
     /**
@@ -72,6 +74,10 @@ public class ClientService {
             transactionService.saveTransaction(transaction);
         }
 
+        for (Invoice invoice : client.getInvoices()) {
+            invoice.setClient(savedClient);
+            invoicesService.saveInvoice(invoice);
+        }
         return savedClient;
     }
 

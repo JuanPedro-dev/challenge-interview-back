@@ -11,7 +11,7 @@ public class Card {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String card_number;
     private String alias;
 
     // Código de seguridad
@@ -29,8 +29,9 @@ public class Card {
     public Card() {
     }
 
-    public Card(Long id, String alias, Long key_security, Double balance, Client client, LocalDate expiration) {
+    public Card(Long id, String card_number, String alias, Long key_security, Double balance, Client client, LocalDate expiration) {
         this.id = id;
+        this.card_number = card_number;
         this.alias = alias;
         this.key_security = key_security;
         this.balance = balance;
@@ -44,6 +45,14 @@ public class Card {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getCard_number() {
+        return card_number;
+    }
+
+    public void setCard_number(String card_number) {
+        this.card_number = card_number;
     }
 
     public String getAlias() {

@@ -12,7 +12,6 @@ public class Client {
 
     private String name;
     private String password;
-    private Double balance;
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Card> cards;
@@ -27,11 +26,10 @@ public class Client {
     public Client() {
     }
 
-    public Client(Long id, String name, String password, Double balance, List<Card> cards, List<Invoice> invoices, List<Transaction> transactions) {
+    public Client(Long id, String name, String password, List<Card> cards, List<Invoice> invoices, List<Transaction> transactions) {
         this.id = id;
         this.name = name;
         this.password = password;
-        this.balance = balance;
         this.cards = cards;
         this.invoices = invoices;
         this.transactions = transactions;
@@ -59,14 +57,6 @@ public class Client {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
     }
 
     public List<Card> getCards() {

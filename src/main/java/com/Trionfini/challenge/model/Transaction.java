@@ -20,7 +20,6 @@ public class Transaction {
     private StateTransaction state;
     private TypeTransaction type;
 
-
     @ManyToOne
     @JoinColumn(name = "client")
     @JsonIgnore
